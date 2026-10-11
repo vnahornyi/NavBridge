@@ -2,11 +2,11 @@
 
 ## 0. Lifecycle and session entry
 
-- **Status:** Blocked
+- **Status:** Implemented — awaiting approval
 - **Plan created:** 2026-10-11.
 - **Target:** iOS 27 / iPhone, with React Native presentation and native Swift execution. Android is outside scope.
 - **Prerequisites:** [NB-000](NB-000-documentation-foundation.md)
-- **Approval:** The owner authorized the bounded read-only audit and documentation updates in §13 by asking to execute it. On 2026-10-11, the owner confirmed v1.0 is for their own iPhone on iOS 27, with no paid Apple Developer Program membership, VPN, or public release. The embedded packet tunnel is outside this scope. Q-02 remains unanswered, and no runtime implementation or speculative probe is authorized.
+- **Approval:** The owner authorized the bounded read-only audit and documentation updates in §13 by asking to execute it. On 2026-10-11, the owner confirmed v1.0 is for their own iPhone on iOS 27, with no paid Apple Developer Program membership, no VPN in NavBridge, and no public release. The embedded packet tunnel is outside this scope. The owner identifies the external tool as Locus `main` run with LocalDevVPN on an iPhone 11 / iOS 27, with the latest App Store Waze version; they report that the GPS location returned after Locus Stop. Exact build identifiers are explicitly waived for NB-001; repeat-update behavior remains unknown and non-blocking at the owner's direction. No runtime implementation or speculative probe is authorized.
 - **Persistence:** Keep this plan in Git and update it in place; do not delete it after completion or create separate state/handoff/review files.
 
 New-session prompt:
@@ -21,7 +21,7 @@ This is one task/approval unit. If new evidence materially changes it, update th
 
 ## 2. Verified context and proposed files
 
-The owner reports external location simulation visible in Waze on iOS 27. The exact app/build, background duration, set/clear semantics, and paid signing capability are unknown. No NavBridge native integration exists.
+The owner reports building Locus from its `main` branch for an iPhone 11 running iOS 27, connecting LocalDevVPN, and simulating the phone's location; the earlier report says Waze saw the supplied location. After Locus Stop, the owner reports that GPS location returned. Waze was identified as the latest App Store version. Exact build identifiers are intentionally omitted at the owner's direction. Repeated-update behavior and background behavior remain unknown. No NavBridge native integration exists.
 
 Existing: docs/research/evidence.md, docs/research/open-questions.md, docs/product/requirements.md, docs/testing/device-validation.md. Proposed new reviewed evidence: harness/reports/NB-001-feasibility.md. Any disposable signing probe must be explicitly scoped before it is created; it is not a finished product integration.
 
@@ -37,7 +37,7 @@ Baseline repository revision: `289d710aac77cfa3e8b4985201ca8285e33fabb8`. Predec
 
 **Who still has the problem:** Untested devices, OS builds, vehicle/adapter/head-unit configurations and users outside the agreed personal scope. Success of this task does not imply the entire product is complete.
 
-**Decisions:** Q-01 is resolved for v1.0: personal iOS 27 use, no paid membership, no VPN, and no public release. Resolve Q-02/Q-08. Confirm or defer Q-03/Q-04/Q-05/Q-10 with explicit affected-task blockers. Agreement on this research task does not approve every proposed product decision.
+**Decisions:** Q-01 is resolved for v1.0: personal iOS 27 use, no paid membership, no VPN in NavBridge, and no public release. The owner-reported Locus/LocalDevVPN test records an external location-set and Stop result; it does not verify the selected no-VPN NavBridge path. Exact build identifiers are not required for NB-001, and repeated updates remain unverified but non-blocking at the owner's direction. Q-08 is partially answered; remaining vehicle, adapter, and reference details affect later measurement tasks. Confirm or defer Q-03/Q-04/Q-05/Q-10 with explicit affected-task blockers. Agreement on this research task does not approve every proposed product decision.
 
 Applicable criteria: AGENTS.md; requirements R-01–R-10; [architecture contracts](../docs/architecture/contracts.md); [test strategy](../docs/testing/strategy.md). Numeric quality/resource settings need documented provenance and agreement; proposed structural design is reviewed with the task, not silently treated as established fact.
 
@@ -45,9 +45,9 @@ Applicable criteria: AGENTS.md; requirements R-01–R-10; [architecture contract
 
 ### 1. Capture the external control
 
-Record tool/version/setup, iOS/Waze versions, recognizable stationary position updates, and clearing; distinguish destination deep links from the vehicle marker.
+Record the tool/source branch and setup, available iOS/Waze versions, recognizable position updates, and clear/stop result; distinguish destination deep links from the vehicle marker. Exact build identifiers are intentionally omitted per owner direction.
 
-**Done when:** A repeatable procedure and observed pass/fail/unknown results exist without secrets or real route disclosure.
+**Done when:** The owner-reported external setup and observed location-set/Stop results are recorded, with untested repeat-update behavior labeled unknown and no secrets or real route disclosed.
 
 ### 2. Check own-signing and iOS 27 pairing feasibility
 
@@ -99,11 +99,11 @@ No hour estimate, delivery date, hardware purchase or paid-service budget is app
 
 ## 11. Verification and completion
 
-**Current record (2026-10-11):** The §13 documentation audit is recorded in [the NB-001 feasibility report](../harness/reports/NB-001-feasibility.md) at repository revision `0023ac72ebfe8625190833953725e7a770970ba9`. The tree was clean on `main` before these edits. Node `v22.14.0`, npm `10.9.2`, Xcode `27.0` build `27A266a`, and `/Applications/Xcode.app/Contents/Developer` were observed. The template remains RN `0.87.1` / React `19.2.3`, with the generated app bundle identifier and iOS deployment target `15.1`; no tunnel extension or NavBridge location-output implementation exists. Pinned upstream source and license conditions were audited, but no upstream build or artifact was reproduced. The owner confirmed v1.0 is for their own iOS 27 phone, without paid membership, VPN, or public release. The pinned Locus README describes iOS 27 on-device developer pairing and reserves LocalDevVPN for iOS 18–26; this is an upstream candidate, not a verified NavBridge path. The paid Network Extension capability is irrelevant to the selected no-VPN scope. Free-team NavBridge signing, pairing, output, and clear/recovery remain unverified. Q-02 remains unanswered, so D-01 was not run. No app tests, build, simulator, device, Waze, CarPlay, or vehicle checks were run.
+**Current record (2026-10-11):** The §13 documentation audit is recorded in [the NB-001 feasibility report](../harness/reports/NB-001-feasibility.md) at repository revision `0023ac72ebfe8625190833953725e7a770970ba9`. The tree was clean on `main` before these edits. Node `v22.14.0`, npm `10.9.2`, Xcode `27.0` build `27A266a`, and `/Applications/Xcode.app/Contents/Developer` were observed. The template remains RN `0.87.1` / React `19.2.3`, with the generated app bundle identifier and iOS deployment target `15.1`; no tunnel extension or NavBridge location-output implementation exists. Pinned upstream source and license conditions were audited, but no upstream build or artifact was reproduced. The owner confirmed v1.0 is for their own iOS 27 phone, without paid membership, VPN in NavBridge, or public release. The owner reports Locus `main` built for iPhone 11 / iOS 27 with LocalDevVPN connected, location simulation active, and GPS location returning after Stop; Waze was identified as the latest App Store version. Exact build identifiers are intentionally omitted at the owner's direction. Repeat-update behavior remains unknown and non-blocking for NB-001 by that direction. The pinned Locus README describes iOS 27 on-device developer pairing without LocalDevVPN and reserves LocalDevVPN for iOS 18–26; that upstream candidate does not establish that the owner's reported build used the same path or that NavBridge works without VPN. The paid Network Extension capability is irrelevant to the selected no-VPN scope. Free-team NavBridge signing, pairing, output, and own-build clear/recovery remain unverified. D-01 is an owner-reported external result, not reproduced in this session. No app tests, build, simulator, or device check was run in this session; no CarPlay or vehicle check was run.
 
 - [x] Owner-authorized §13 documentation scope and confirmed v1.0 boundary recorded; motion and measurement decisions remain unresolved.
 - [x] NB-000 documentation prerequisite and available repository/device evidence verified; the only device observation remains owner-reported.
-- [ ] Ordered steps completed within scope; D-01 remains blocked, and free-team signing/pairing/output device validation was not run.
+- [x] Ordered documentation/research steps completed within the agreed scope; D-01 records the owner-reported set/Stop result, while repeated updates remain unknown; free-team signing/pairing/output validation is explicitly deferred to NB-004.
 - [x] Authorized read-only checks recorded with commands, revision, results and skipped cases in the report.
 - [x] Relevant evidence/report updated; no secrets or private recordings included.
 - [x] Exact task files staged; full diff and commit message presented.
@@ -113,7 +113,7 @@ Append concise decisions and actual verification here as work proceeds. Do not c
 
 ## 12. Open questions, blockers and exclusions
 
-Q-01 is resolved for v1.0: own iOS 27 phone, no paid Apple Developer Program membership, no VPN, and no public release. The embedded tunnel is out of scope; the paid Network Extension entitlement is not a blocker for this selected design. Free-team signing and the pinned iOS 27 developer-pairing/location-output path still need an explicitly approved own-build/device experiment in NB-004. The current NB-003/NB-004 plans describe a tunnel-dependent design and must be reconciled before implementation. [BLOCKING for reproducible baseline] Q-02: the owner has not supplied the external tool/build and repeat-update/clear observations. Device/operator access is required for D-01; independent source and documentation work can proceed.
+Q-01 is resolved for v1.0: own iOS 27 phone, no paid Apple Developer Program membership, no VPN in NavBridge, and no public release. The embedded tunnel is out of scope; the paid Network Extension entitlement is not a blocker for this selected design. Free-team signing and the pinned iOS 27 developer-pairing/location-output path still need an explicitly approved own-build/device experiment in NB-004. The current NB-003/NB-004 plans describe a tunnel-dependent design and must be reconciled before implementation. Q-02 is resolved enough to unblock NB-001: the owner identifies Locus `main` built for iPhone 11 / iOS 27 and used with LocalDevVPN; Waze was identified as the latest App Store version, and GPS location returned after Stop. Exact build identifiers are omitted at the owner's direction; repeated-update behavior is unknown and non-blocking for this baseline. D-01 is owner-reported, not independently reproduced. Q-08 is partially answered; remaining vehicle/adapter/reference details are for downstream measurement tasks. Independent source and documentation work can proceed.
 
 Read [the question register](../docs/research/open-questions.md) for cross-task questions. Record answers in the owning document and this plan. Future commercial distribution, automatic map matching, cell/Wi-Fi positioning, CAN/extra IMU hardware, GNSS anomaly detection and Android remain outside this task unless explicitly approved separately.
 
@@ -164,18 +164,18 @@ Report the actual branch/revision and whether the tree has unrelated work. The r
 Ask in the owner's conversation language; maintain English repository records. Skip questions already answered in the current session or updated documents.
 
 - The owner has answered the membership question: no paid Apple Developer Program membership for v1.0. Do not ask again or request credentials/account screenshots. Verify only the free-team signing and iOS 27 pairing path when an approved own-build experiment is planned.
-- What exact application/version and steps produced “Waze sees it”? Did the owner test continuous changes and clearing, or only a single coordinate?
-- What are the actual phone model/iOS build, Waze version, adapter identification/firmware evidence, and head-unit/connection type, where known?
+- The owner identifies Locus `main` built for iPhone 11 / iOS 27 and run with LocalDevVPN, and reports GPS location returned after Stop. Exact build identifiers are waived for NB-001. Repeated-update behavior remains unknown and is non-blocking by owner direction.
+- What adapter identification/firmware evidence and head-unit/connection type are available?
 - Does the owner accept a rigid phone mount, manual initial heading, forward-only baseline, and initially stationary corrections? If reverse is required, ask whether a manual forward/reverse control is acceptable.
 - What intended outage/use duration, accuracy/intervention expectations, and app states matter? What independent reference is available for later field tests?
 
-Membership and exact external-control answers gate own-build planning/baseline. Motion/accuracy answers may remain explicitly blocked for NB-006/NB-009. Do not turn silence into approval or invent numeric defaults. Recording/map/locale questions can remain for their owning plans; do not overwhelm this session with every future choice.
+The external-control result is sufficient to unblock this baseline under the owner's instruction; exact build identifiers are not required, and repeated-update behavior remains an explicit unknown. Motion/accuracy answers may remain explicitly blocked for NB-006/NB-009. Do not turn silence into approval or invent numeric defaults. Recording/map/locale questions can remain for their owning plans; do not overwhelm this session with every future choice.
 
 ### D. Reproduce the owner's external control only if available
 
 This is an owner-operated stationary experiment with the existing working tool; do not automate or alter that tool's installation/profile. Agree the steps before the owner performs them:
 
-1. Record exact external tool/Waze/iOS versions and whether its helper VPN is active. No pairing secrets or private identifiers in repository notes.
+1. Record the external tool/source branch, available Waze/iOS versions, and whether its helper VPN is active. The owner waived exact build identifiers for NB-001. No pairing secrets or private identifiers in repository notes.
 2. On a stationary phone/vehicle, select an owner-chosen recognizable test position. Keep real test coordinates outside Git.
 3. Open Waze and observe the vehicle marker. Opening a destination/map pin is not equivalent to setting the current location.
 4. If supported by the current setup, make deliberate position changes and record whether Waze follows them. Record actual elapsed observations; do not prescribe an unsupported duration as a product target.
@@ -183,6 +183,8 @@ This is an owner-operated stationary experiment with the existing working tool; 
 6. Record whether Waze-foreground/background, lock/unlock, Wi-Fi/cellular, and CarPlay were tested. Untested combinations stay not run.
 
 Do not create a new simulated coordinate during cleanup, remove another app's VPN, or reset pairing. If the working setup cannot be safely reproduced, record the exact limitation and leave the environment as found.
+
+The owner reports that GPS location returned after using Locus Stop. Repeated position updates were not reported; record them as unknown without blocking NB-001.
 
 ### E. Audit own-build feasibility without implementing it
 

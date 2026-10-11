@@ -14,7 +14,7 @@
 | R-08 | Plan thoroughly before runtime implementation; include structure, documentation, business, tests, harness | Current request |
 | R-09 | Track plans in Git and continue through new sessions | Current explicit override |
 | R-10 | Write all documentation and plans in English | Owner's answer during foundation planning |
-| R-11 | v1.0 is a personal prototype for the owner's own iPhone on iOS 27; no paid Apple Developer Program membership, VPN, or public release | Owner decision, 2026-10-11 |
+| R-11 | v1.0 is a personal prototype for the owner's own iPhone on iOS 27; no paid Apple Developer Program membership, no VPN in NavBridge, or public release | Owner decision, 2026-10-11 |
 
 ## Desired design requiring task approval
 

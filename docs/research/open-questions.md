@@ -6,14 +6,14 @@ These questions do not block the documentation foundation. They gate the specifi
 
 | ID | Question / proposed answer | Blocks |
 |---|---|---|
-| Q-01 | Owner confirmed v1.0 is for their own iPhone on iOS 27, with no paid Apple Developer Program membership, no VPN, and no public release (2026-10-11). The embedded packet tunnel is out of v1.0. Pinned Locus instructions describe iOS 27 on-device developer pairing without LocalDevVPN; this is upstream evidence, not a verified NavBridge path. | Free-team NavBridge signing and iOS 27 pairing/location-output validation in NB-004; revise NB-003/NB-004 plans before implementation |
-| Q-02 | Which exact tool/build and setup produced “Waze sees it”? Can the owner repeat set, continuous updates, and clear? | NB-001 baseline; later comparison |
+| Q-01 | Owner confirmed v1.0 is for their own iPhone on iOS 27, with no paid Apple Developer Program membership, no VPN in NavBridge, and no public release (2026-10-11). The embedded packet tunnel is out of v1.0. Pinned Locus instructions describe iOS 27 on-device developer pairing without LocalDevVPN; this is upstream evidence, not a verified NavBridge path. | Free-team NavBridge signing and iOS 27 pairing/location-output validation in NB-004; revise NB-003/NB-004 plans before implementation |
+| Q-02 | Resolved for the NB-001 external baseline at the owner's direction: Locus `main` was built for an iPhone 11 running iOS 27, used with LocalDevVPN and the latest App Store Waze version; the owner reports that GPS location returned after Locus Stop. Exact build identifiers are waived. Repeated position-update behavior remains unknown and non-blocking for NB-001. | No longer blocks NB-001. Repeated-update behavior remains unverified for any later comparison. |
 | Q-03 | Approve forward-only baseline with an explicit reverse limitation, or require a manual forward/reverse control? | NB-006 motion contract and NB-008 controls |
 | Q-04 | Approve manual vehicle heading and a rigid mounting/calibration procedure? | NB-006/NB-008 |
 | Q-05 | Which intended outage duration, routes, drift/intervention tolerance, and supported app states define usefulness? | Field acceptance NB-009; no invented target now |
 | Q-06 | Is location/motion recording opt-in/local-only, and what export/retention behavior is acceptable? | NB-007 recorder |
 | Q-07 | Which map provider, online/offline expectation, and UI locale should the manual coordinate picker use? Coordinate entry is proposed fallback. | NB-008 dependencies and UI |
-| Q-08 | What are the exact phone model, vehicle/adapter firmware evidence, head-unit/CarPlay mode, and available independent reference device? | NB-001 measurement setup; NB-009/NB-010 matrix |
+| Q-08 | Owner identified an iPhone 11 running iOS 27; exact build identifiers are waived for NB-001. What vehicle/adapter firmware evidence, head-unit/CarPlay mode, and independent reference device are available for later measurement? | NB-009/NB-010 matrix and measurement setup; does not block NB-001 |
 | Q-09 | Current v1.0 is personal-use only with no public release. Future public or commercial distribution remains undecided. | NB-011 distribution/business gate |
 | Q-10 | Is manual correction supported only while stationary initially? Moving selection introduces time/position ambiguity. | NB-006 correction semantics and NB-008 flow |
 
