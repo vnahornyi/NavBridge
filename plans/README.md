@@ -7,7 +7,7 @@ The owner explicitly requested repository plans that survive new sessions. These
 | Task | Deliverable | Prerequisites | Status |
 |---|---|---|---|
 | [NB-000](NB-000-documentation-foundation.md) | Documentation foundation | — | Implemented — awaiting approval |
-| [NB-001](NB-001-feasibility-and-baseline.md) | Feasibility and baseline | NB-000 | Implemented — awaiting approval |
+| [NB-001](NB-001-feasibility-and-baseline.md) | Feasibility and baseline | NB-000 | Complete |
 | [NB-002](NB-002-native-session-contract.md) | Native core and session contract | NB-001 | Draft |
 | [NB-003](NB-003-integrated-local-tunnel.md) | Integrated local tunnel | NB-001, NB-002 | Draft |
 | [NB-004](NB-004-location-output-and-pairing.md) | Location output and pairing | NB-001, NB-002, NB-003 | Draft |

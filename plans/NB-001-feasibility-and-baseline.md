@@ -2,7 +2,7 @@
 
 ## 0. Lifecycle and session entry
 
-- **Status:** Implemented — awaiting approval
+- **Status:** Complete
 - **Plan created:** 2026-10-11.
 - **Target:** iOS 27 / iPhone, with React Native presentation and native Swift execution. Android is outside scope.
 - **Prerequisites:** [NB-000](NB-000-documentation-foundation.md)
@@ -107,7 +107,7 @@ No hour estimate, delivery date, hardware purchase or paid-service budget is app
 - [x] Authorized read-only checks recorded with commands, revision, results and skipped cases in the report.
 - [x] Relevant evidence/report updated; no secrets or private recordings included.
 - [x] Exact task files staged; full diff and commit message presented.
-- [ ] Owner approved the complete staged result; then mark Complete and update plans/README.md.
+- [x] Owner approved the complete staged result; NB-001 marked Complete and plans/README.md updated.
 
 Append concise decisions and actual verification here as work proceeds. Do not create a separate handoff/review state file. Complete does not itself grant commit or publication authority.
 
