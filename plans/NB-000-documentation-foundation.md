@@ -107,7 +107,7 @@ No hour estimate, delivery date, hardware purchase or paid-service budget is app
 - [x] Authorized checks recorded with commands, revision, results and skipped cases.
 - [x] Relevant documentation/evidence updated; secrets and private recordings excluded.
 - [x] Exact task files staged; full diff supplied for review. Proposed commit: `docs: define NavBridge architecture and implementation roadmap`.
-- [ ] Owner approved the complete staged result; then mark Complete and update plans/README.md.
+- [x] Owner approved the complete staged result; then mark Complete and update plans/README.md.
 
 Append concise decisions and actual verification here as work proceeds. Do not create a separate handoff/review state file. Complete does not itself grant commit or publication authority.
 
