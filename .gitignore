@@ -73,3 +73,14 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# NavBridge: private recordings and signing / pairing material
+harness/recordings/private/
+harness/reports/local/
+*.mobiledevicepairing
+*.mobiledevicepair
+**/RPPairing*.plist
+**/pairing*.plist
+*.p12
+*.p8
+*.mobileprovision

@@ -1,97 +1,64 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# NavBridge
 
-# Getting Started
+An experimental iPhone positioning companion for Waze, using vehicle speed from a Viecar VC100 OBD adapter and motion measurements from a mounted phone.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+**Status: planning.** The repository currently contains the React Native template and project documentation. OBD integration, dead reckoning, local VPN integration, pairing, and location output are not implemented in NavBridge.
 
-## Step 1: Start Metro
+The owner reported that Waze on their iOS 27 phone follows coordinates supplied by an external location-simulation tool. This validates one integration observation; it does not validate continuous updates, background operation, CarPlay, positioning accuracy, or our own implementation.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Intended experience
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+1. Complete the initial device pairing and permissions setup.
+2. Select the actual vehicle position on the map and confirm the vehicle heading.
+3. Press **Start** to connect to the OBD adapter and start the positioning session.
+4. Open Waze, which receives the position through iOS system location services.
+5. Return to NavBridge for a manual position or heading correction when necessary.
+6. Press **Stop** to clear the supplied location and release session resources. If clearing fails, show an explicit recovery state rather than claiming the session is fully stopped.
 
-```sh
-# Using npm
-npm start
+The desired packaging is one application with an embedded local VPN extension. Signing feasibility remains an open dependency. Waze on the phone is the first integration target; CarPlay is a later validation task. Android is outside the product scope; the generated Android template remains untouched.
 
-# OR using Yarn
-yarn start
-```
+## Read first
 
-## Step 2: Build and run your app
+- [Project instructions](AGENTS.md)
+- [Documentation index](docs/README.md)
+- [Requirements and their provenance](docs/product/requirements.md)
+- [System architecture](docs/architecture/system-design.md)
+- [Repository structure: existing versus planned](docs/architecture/repository-structure.md)
+- [Business plan](docs/product/business-plan.md)
+- [Testing strategy](docs/testing/strategy.md) and [replay harness](docs/testing/harness.md)
+- [Evidence and sources](docs/research/evidence.md)
+- [Open questions](docs/research/open-questions.md)
+- [Persistent implementation plans](plans/README.md)
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## Current development setup
 
-### Android
+Verified from the template: React Native `0.87.1`, React `19.2.3`, Node `>=22.11.0`, npm lockfile, CocoaPods, TypeScript, ESLint, and Jest. The checked-in Xcode project still has its generated bundle identifier and iOS deployment target `15.1`; the intended prototype device runs iOS 27. These are different facts, not evidence that NavBridge supports older iOS versions.
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
+```bash
+npm ci
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
+cd ios
 bundle exec pod install
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+From the repository root, start Metro with `npm start`; use `npm run ios` or open `ios/NavBridge.xcworkspace` in Xcode. These commands currently run the template, not the proposed product.
 
-```sh
-# Using npm
-npm run ios
+Existing checks, to be run only for an authorized implementation scope:
 
-# OR using Yarn
-yarn ios
+```bash
+npx --no-install tsc --noEmit
+npm run lint
+npm test -- --runInBand
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+No Swift package, replay CLI, device test runner, or CI workflow exists yet. Their proposed paths and installation steps belong to the corresponding plans. Simulator tests will not prove Waze injection or BLE compatibility.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## Working across sessions
 
-## Step 3: Modify your app
+Start a new session with: “Read AGENTS.md, plans/README.md, and plans/NB-001-feasibility-and-baseline.md. Continue that task; inspect Git and its open questions before making changes.”
 
-Now that you have successfully run the app, let's make changes!
+Plans are tracked project assets. Keep completed plans, update them in place, and record evidence and remaining limitations inside the relevant plan. Do not create a second state system. Implementation starts only after the owner approves the relevant plan and its unresolved product decisions.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## Licensing
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+The license for NavBridge itself has not been selected. Upstream components retain their own conditions; see [privacy, dependencies, and licensing](docs/engineering/privacy-and-licensing.md). No upstream source or binary is vendored in this documentation change.
