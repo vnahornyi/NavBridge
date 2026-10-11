@@ -2,11 +2,11 @@
 
 ## 0. Lifecycle and session entry
 
-- **Status:** Draft
+- **Status:** Blocked
 - **Plan created:** 2026-10-11.
 - **Target:** iOS 27 / iPhone, with React Native presentation and native Swift execution. Android is outside scope.
 - **Prerequisites:** [NB-000](NB-000-documentation-foundation.md)
-- **Approval:** Draft only. Documentation approval does not authorize this implementation. Obtain owner approval of this task and its blocking decisions before code.
+- **Approval:** The owner authorized the bounded read-only audit and documentation updates in §13 by asking to execute it. On 2026-10-11, the owner confirmed v1.0 is for their own iPhone on iOS 27, with no paid Apple Developer Program membership, VPN, or public release. The embedded packet tunnel is outside this scope. Q-02 remains unanswered, and no runtime implementation or speculative probe is authorized.
 - **Persistence:** Keep this plan in Git and update it in place; do not delete it after completion or create separate state/handoff/review files.
 
 New-session prompt:
@@ -37,7 +37,7 @@ Baseline repository revision: `289d710aac77cfa3e8b4985201ca8285e33fabb8`. Predec
 
 **Who still has the problem:** Untested devices, OS builds, vehicle/adapter/head-unit configurations and users outside the agreed personal scope. Success of this task does not imply the entire product is complete.
 
-**Decisions:** Resolve Q-01/Q-02/Q-08. Confirm or defer Q-03/Q-04/Q-05/Q-10 with explicit affected-task blockers. Agreement on this research task does not approve every proposed product decision.
+**Decisions:** Q-01 is resolved for v1.0: personal iOS 27 use, no paid membership, no VPN, and no public release. Resolve Q-02/Q-08. Confirm or defer Q-03/Q-04/Q-05/Q-10 with explicit affected-task blockers. Agreement on this research task does not approve every proposed product decision.
 
 Applicable criteria: AGENTS.md; requirements R-01–R-10; [architecture contracts](../docs/architecture/contracts.md); [test strategy](../docs/testing/strategy.md). Numeric quality/resource settings need documented provenance and agreement; proposed structural design is reviewed with the task, not silently treated as established fact.
 
@@ -49,11 +49,11 @@ Record tool/version/setup, iOS/Waze versions, recognizable stationary position u
 
 **Done when:** A repeatable procedure and observed pass/fail/unknown results exist without secrets or real route disclosure.
 
-### 2. Check own-signing feasibility
+### 2. Check own-signing and iOS 27 pairing feasibility
 
-Verify program membership and packet-tunnel capability with the owner. Audit the selected upstream build path. If needed propose a minimal local signing experiment before writing it.
+Record the owner's no-paid/no-VPN decision. Audit the pinned iOS 27 pairing/output path and distinguish a free personal signing account from a paid Network Extension entitlement. Propose any own-build/device experiment before creating it.
 
-**Done when:** Available entitlements/provisioning or a specific blocker is documented; no inferred own-build success.
+**Done when:** The documented candidate path and remaining own-build/device validation are explicit; no inferred signing or output success.
 
 ### 3. Approve measurement and product boundaries
 
@@ -99,21 +99,21 @@ No hour estimate, delivery date, hardware purchase or paid-service budget is app
 
 ## 11. Verification and completion
 
-**Current record:** Not started. No task implementation, automated check, build, simulator, device, Waze, CarPlay, or vehicle result is claimed by this plan.
+**Current record (2026-10-11):** The §13 documentation audit is recorded in [the NB-001 feasibility report](../harness/reports/NB-001-feasibility.md) at repository revision `0023ac72ebfe8625190833953725e7a770970ba9`. The tree was clean on `main` before these edits. Node `v22.14.0`, npm `10.9.2`, Xcode `27.0` build `27A266a`, and `/Applications/Xcode.app/Contents/Developer` were observed. The template remains RN `0.87.1` / React `19.2.3`, with the generated app bundle identifier and iOS deployment target `15.1`; no tunnel extension or NavBridge location-output implementation exists. Pinned upstream source and license conditions were audited, but no upstream build or artifact was reproduced. The owner confirmed v1.0 is for their own iOS 27 phone, without paid membership, VPN, or public release. The pinned Locus README describes iOS 27 on-device developer pairing and reserves LocalDevVPN for iOS 18–26; this is an upstream candidate, not a verified NavBridge path. The paid Network Extension capability is irrelevant to the selected no-VPN scope. Free-team NavBridge signing, pairing, output, and clear/recovery remain unverified. Q-02 remains unanswered, so D-01 was not run. No app tests, build, simulator, device, Waze, CarPlay, or vehicle checks were run.
 
-- [ ] Owner-approved task scope and blocking decisions recorded.
-- [ ] Prerequisites verified against the current repository and device evidence.
-- [ ] Ordered steps completed within scope; actual paths/contracts recorded.
-- [ ] Authorized checks recorded with commands, revision, results and skipped cases.
-- [ ] Relevant documentation/evidence updated; secrets and private recordings excluded.
-- [ ] Exact task files staged; full diff and commit message presented.
+- [x] Owner-authorized §13 documentation scope and confirmed v1.0 boundary recorded; motion and measurement decisions remain unresolved.
+- [x] NB-000 documentation prerequisite and available repository/device evidence verified; the only device observation remains owner-reported.
+- [ ] Ordered steps completed within scope; D-01 remains blocked, and free-team signing/pairing/output device validation was not run.
+- [x] Authorized read-only checks recorded with commands, revision, results and skipped cases in the report.
+- [x] Relevant evidence/report updated; no secrets or private recordings included.
+- [x] Exact task files staged; full diff and commit message presented.
 - [ ] Owner approved the complete staged result; then mark Complete and update plans/README.md.
 
 Append concise decisions and actual verification here as work proceeds. Do not create a separate handoff/review state file. Complete does not itself grant commit or publication authority.
 
 ## 12. Open questions, blockers and exclusions
 
-[BLOCKING for own-device signing] Q-01. [BLOCKING for reproducible baseline] Q-02. Device/operator access is required for experiments; documentation audit can proceed independently.
+Q-01 is resolved for v1.0: own iOS 27 phone, no paid Apple Developer Program membership, no VPN, and no public release. The embedded tunnel is out of scope; the paid Network Extension entitlement is not a blocker for this selected design. Free-team signing and the pinned iOS 27 developer-pairing/location-output path still need an explicitly approved own-build/device experiment in NB-004. The current NB-003/NB-004 plans describe a tunnel-dependent design and must be reconciled before implementation. [BLOCKING for reproducible baseline] Q-02: the owner has not supplied the external tool/build and repeat-update/clear observations. Device/operator access is required for D-01; independent source and documentation work can proceed.
 
 Read [the question register](../docs/research/open-questions.md) for cross-task questions. Record answers in the owning document and this plan. Future commercial distribution, automatic map matching, cell/Wi-Fi positioning, CAN/extra IMU hardware, GNSS anomaly detection and Android remain outside this task unless explicitly approved separately.
 
@@ -163,7 +163,7 @@ Report the actual branch/revision and whether the tree has unrelated work. The r
 
 Ask in the owner's conversation language; maintain English repository records. Skip questions already answered in the current session or updated documents.
 
-- Is a paid Apple Developer Program membership active, and is the owner willing to use it for a personal signed tunnel build? Do not ask for credentials or account screenshots.
+- The owner has answered the membership question: no paid Apple Developer Program membership for v1.0. Do not ask again or request credentials/account screenshots. Verify only the free-team signing and iOS 27 pairing path when an approved own-build experiment is planned.
 - What exact application/version and steps produced “Waze sees it”? Did the owner test continuous changes and clearing, or only a single coordinate?
 - What are the actual phone model/iOS build, Waze version, adapter identification/firmware evidence, and head-unit/connection type, where known?
 - Does the owner accept a rigid phone mount, manual initial heading, forward-only baseline, and initially stationary corrections? If reverse is required, ask whether a manual forward/reverse control is acceptable.
@@ -192,9 +192,9 @@ Write a short table with these rows:
 
 | Capability | Evidence to record | If absent |
 |---|---|---|
-| Paid packet-tunnel signing | Owner-confirmed program/capability availability | Block NB-003 own signed experiment |
+| Free-team app signing and iOS 27 pairing | Owner-confirmed no-paid/no-VPN scope plus pinned Locus iOS 27 instructions | Block NB-004 own-build/output validation if signing or pairing is unavailable |
 | App/extension identifiers | Proposed unique identifiers, still owner-approved before use | Leave unset; never use another project's ID |
-| Local route mechanism | Pinned upstream source and license conditions | Block copying; request a targeted source/license check |
+| LocalDevVPN applicability | Pinned Locus README's OS-specific setup and the owner's no-VPN iOS 27 decision | No tunnel or route reuse in v1.0; retain the iOS 18–26 upstream note as context only |
 | Pairing/output dependency | Source revision, reproducible-build work still needed | Assign to NB-004; do not vendor the binary |
 | Clear/restart semantics | External observation vs own-build unknowns | Keep NB-004 recovery gate open |
 | Waze-foreground execution | Exact observed app-state behavior | Keep NB-009 gate open |
