@@ -9,13 +9,13 @@ The owner explicitly requested repository plans that survive new sessions. These
 | [NB-000](NB-000-documentation-foundation.md) | Documentation foundation | — | Implemented — awaiting approval |
 | [NB-001](NB-001-feasibility-and-baseline.md) | Feasibility and baseline | NB-000 | Complete |
 | [NB-002](NB-002-native-session-contract.md) | Native core and session contract | NB-001 | Complete |
-| [NB-003](NB-003-integrated-local-tunnel.md) | Integrated local tunnel | NB-001, NB-002 | Draft |
-| [NB-004](NB-004-location-output-and-pairing.md) | Location output and pairing | NB-001, NB-002, NB-003 | Draft |
+| [NB-003](NB-003-integrated-local-tunnel.md) | Integrated local tunnel (deferred beyond v1.0) | NB-001, NB-002 | Draft |
+| [NB-004](NB-004-location-output-and-pairing.md) | No-VPN location output and pairing | NB-001, NB-002 | Draft |
 | [NB-005](NB-005-viecar-obd.md) | Viecar OBD discovery and speed | NB-001, NB-002 | Draft |
 | [NB-006](NB-006-motion-and-dead-reckoning.md) | Motion and dead reckoning | NB-001, NB-002, NB-005 | Draft |
 | [NB-007](NB-007-recording-and-replay-harness.md) | Recording and replay harness | NB-002, NB-004, NB-005, NB-006 | Draft |
 | [NB-008](NB-008-control-screen-and-correction.md) | Control screen and correction | NB-002, NB-004, NB-005, NB-006, NB-007 | Draft |
-| [NB-009](NB-009-background-and-device-validation.md) | Background and device acceptance | NB-003, NB-004, NB-005, NB-006, NB-007, NB-008 | Draft |
+| [NB-009](NB-009-background-and-device-validation.md) | Background and device acceptance | NB-004, NB-005, NB-006, NB-007, NB-008 | Draft |
 | [NB-010](NB-010-carplay-validation.md) | CarPlay validation | NB-009 | Draft |
 | [NB-011](NB-011-personal-release-and-business-gate.md) | Personal release and business gate | NB-009 | Draft |
 
@@ -31,7 +31,7 @@ NB-010 is a separate CarPlay gate. NB-011 may deliver phone-only personal instal
 6. Stage exact task files, show stat/full diff and propose a commit message. Stop for owner approval; never push.
 7. Mark Complete only after the task outcome, required verification and complete-diff approval. Keep the plan and update this index.
 
-Current roadmap position: NB-002 is Complete after the iOS host-link check passed. Do not start later runtime tasks automatically.
+Current roadmap position: NB-003 is deferred beyond v1.0 under R-11. NB-004 is next under the confirmed no-VPN scope; its remaining pairing, storage, FFI provenance, and recovery decisions must be resolved and the task scope approved before implementation.
 
 ## Status semantics
 
@@ -44,4 +44,4 @@ Current roadmap position: NB-002 is Complete after the iOS host-link check passe
 
 Update status in the task and index together. Keep one file per task named `NB-NNN-short-slug.md`. Correct it in place; no v2 copies, per-task state JSON, segment manifests, handoff files or extra review/fixes plans. Add a new task only for separately agreed scope, preserving existing IDs.
 
-NB-002 is Complete. Later runtime tasks remain subject to their own approval gate; do not start them automatically.
+NB-002 is Complete. NB-003 remains deferred unless the owner changes R-11. NB-004 is the next planning task and remains Draft until its blocking decisions and implementation scope are approved.

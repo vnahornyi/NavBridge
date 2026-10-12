@@ -3,25 +3,26 @@
 ## 0. Lifecycle and session entry
 
 - **Status:** Draft
+- **Current scope:** No VPN in NavBridge. Target the iOS 27 on-device Developer Mode pairing path; free-team signing and NavBridge output/recovery remain unverified.
 - **Plan created:** 2026-10-11.
 - **Target:** iOS 27 / iPhone, with React Native presentation and native Swift execution. Android is outside scope.
-- **Prerequisites:** [NB-001](NB-001-feasibility-and-baseline.md), [NB-002](NB-002-native-session-contract.md), [NB-003](NB-003-integrated-local-tunnel.md)
+- **Prerequisites:** [NB-001](NB-001-feasibility-and-baseline.md), [NB-002](NB-002-native-session-contract.md)
 - **Approval:** Draft only. Documentation approval does not authorize this implementation. Obtain owner approval of this task and its blocking decisions before code.
 - **Persistence:** Keep this plan in Git and update it in place; do not delete it after completion or create separate state/handoff/review files.
 
 New-session prompt:
 
-> Read AGENTS.md, plans/README.md, and plans/NB-004-location-output-and-pairing.md. Inspect Git branch/HEAD and staged/working changes. Verify prerequisites and open questions against the current tree. Continue only the approved scope of NB-004; report actual checks and stop at the staged diff for approval. Do not commit or push.
+> Read AGENTS.md, plans/README.md, and plans/NB-004-location-output-and-pairing.md. Inspect Git branch/HEAD and staged/working changes. Verify prerequisites and open questions against the current tree. Implement only after NB-004's remaining blocking decisions and the complete task scope are approved. Preserve the no-VPN v1.0 boundary. Report actual checks and stop at the staged diff for approval. Do not commit or push.
 
 ## 1. Task and intended outcome
 
-Own-build NavBridge pairs, supplies a deliberate stationary coordinate to Waze, and clears it with honest acknowledgement/recovery semantics.
+Own-build NavBridge uses iOS 27 on-device Developer Mode pairing without a VPN, supplies a deliberate stationary coordinate to Waze, and clears it with honest acknowledgement/recovery semantics.
 
 This is one task/approval unit. If new evidence materially changes it, update this plan and obtain agreement before expanding scope.
 
 ## 2. Verified context and proposed files
 
-Locus/idevice provides a reference mechanism. The owner's external-tool observation is a control, not this integration. Clearing a fresh connection and cleanup after process loss are unverified.
+The pinned Locus instructions describe an iOS 27 on-device Developer Mode pairing path; this upstream reference and the owner's external-tool observation do not prove that NavBridge works. A targeted search of `ios`, `native`, `src`, and `specs` found no NavBridge pairing, idevice FFI, or location-output implementation. LocalDevVPN and embedded packet tunnels are outside the confirmed v1.0 scope. Clearing through a fresh connection and cleanup after process loss are unverified.
 
 Proposed new: ios/NavBridge/LocationOutput/ pairing/store/FFI wrapper and output implementation; native effect-boundary tests; source/build/notices manifest near any selected vendor integration. Existing: iOS project/link settings and docs/engineering/privacy-and-licensing.md. Record reviewed evidence in harness/reports/NB-004-location-output.md.
 
@@ -37,9 +38,11 @@ Baseline repository revision: `289d710aac77cfa3e8b4985201ca8285e33fabb8`. Predec
 
 **Who still has the problem:** Untested devices, OS builds, vehicle/adapter/head-unit configurations and users outside the agreed personal scope. Success of this task does not imply the entire product is complete.
 
-**Decisions:** Approve the on-device pairing flow, secret storage/delete policy, FFI build source, set/clear ownership, and crash recovery marker. If fresh-handle clear cannot be proven, expose the limitation and do not fabricate a setup coordinate.
+**Confirmed boundary:** No paid Apple Developer Program membership and no VPN in NavBridge v1.0. Target iOS 27 on-device Developer Mode pairing; the exact NavBridge path remains unverified.
 
-Applicable criteria: AGENTS.md; requirements R-01–R-10; [architecture contracts](../docs/architecture/contracts.md); [test strategy](../docs/testing/strategy.md). Numeric quality/resource settings need documented provenance and agreement; proposed structural design is reviewed with the task, not silently treated as established fact.
+**Blocking decisions before implementation:** Confirm the pairing consent/retry flow; pairing-material storage and deletion policy; exact FFI/source revisions and reproducible build/license approach; and crash-recovery marker semantics. Map transport callbacks to the NB-002 acknowledgement outcomes while keeping live session effects and ordering in native Swift. If fresh-handle clear cannot be proven, expose the limitation and do not fabricate a setup coordinate. If free-team signing or the no-VPN pairing path is unavailable, stop and report the blocker rather than introducing paid signing or a tunnel.
+
+Applicable criteria: AGENTS.md; requirements R-01–R-11; [architecture contracts](../docs/architecture/contracts.md); [test strategy](../docs/testing/strategy.md). Numeric quality/resource settings need documented provenance and agreement; proposed structural design is reviewed with the task, not silently treated as established fact.
 
 ## 4. Ordered implementation / research steps
 
@@ -51,7 +54,7 @@ Select exact idevice/transitive revisions; build required device/simulator slice
 
 ### 2. Implement pairing and connection ownership
 
-Use narrow native setup methods with restricted storage, redacted errors, explicit invalid/revoked pairing recovery, and app-owned tunnel dependency.
+Use narrow native setup methods with the approved pairing-material storage policy, redacted errors, and explicit invalid/revoked pairing recovery. Do not add a tunnel dependency.
 
 **Done when:** Pair/unpair/retry behavior works on the target phone without secrets in logs/Git.
 
@@ -63,7 +66,7 @@ Expose set/clear acknowledgements; write outstanding marker before output; clear
 
 ### 4. Prove stationary Waze integration
 
-Repeat controlled distinct-coordinate set/clear, ongoing updates, canceled startup, tunnel interruption and process restart with the own build.
+Repeat controlled distinct-coordinate set/clear, ongoing updates, canceled startup, pairing/connection interruption and process restart with the own build.
 
 **Done when:** A sanitized report distinguishes API acknowledgement, actual Waze observation, and any unresolved system restoration behavior.
 
@@ -83,13 +86,13 @@ Not applicable; later RN tests display structured setup/cleanup states.
 
 ## 8. Manual QA / experiment cases
 
-D-02/D-06/D-07 output portions while stationary; repeat clear through an existing and fresh connection, tunnel loss, app termination, reinstall/re-pair where authorized. Never assume closing a handle restores location.
+D-02/D-06/D-07 output portions while stationary; repeat clear through an existing and fresh connection, pairing denial/revocation, app termination, and reinstall/re-pair where authorized. Never assume closing a handle restores location.
 
 Record preconditions → actions → expected result → actual observation using [device validation](../docs/testing/device-validation.md). Mark cases not run, pass, fail, blocked or inconclusive; never imply the listed cases already passed.
 
 ## 9. Regression scope
 
-Own VPN lifecycle/Internet, Swift/RN linkage, privacy of pairing material, clean template launch, real location restoration after experiments.
+Free-team signing, no-VPN pairing and output, Swift/RN linkage, privacy of pairing material, clean template launch, and real location restoration after experiments.
 
 Broaden checks only when changed shared consumers, new failures, or unresolved concerns justify it. No unrelated dependency upgrade or architecture cleanup is included.
 
@@ -113,6 +116,6 @@ Append concise decisions and actual verification here as work proceeds. Do not c
 
 ## 12. Open questions, blockers and exclusions
 
-[BLOCKING] NB-003 signed transport; source/build/license provenance; actual phone access. Unproven cleanup behavior blocks a usable live positioning claim.
+[BLOCKING] Free-team signing and iOS 27 on-device pairing availability; selected source/build/license provenance; actual phone access; and proven cleanup behavior. If cleanup remains unknown, do not claim usable live positioning.
 
 Read [the question register](../docs/research/open-questions.md) for cross-task questions. Record answers in the owning document and this plan. Future commercial distribution, automatic map matching, cell/Wi-Fi positioning, CAN/extra IMU hardware, GNSS anomaly detection and Android remain outside this task unless explicitly approved separately.
