@@ -8,7 +8,7 @@ The owner explicitly requested repository plans that survive new sessions. These
 |---|---|---|---|
 | [NB-000](NB-000-documentation-foundation.md) | Documentation foundation | — | Implemented — awaiting approval |
 | [NB-001](NB-001-feasibility-and-baseline.md) | Feasibility and baseline | NB-000 | Complete |
-| [NB-002](NB-002-native-session-contract.md) | Native core and session contract | NB-001 | Draft |
+| [NB-002](NB-002-native-session-contract.md) | Native core and session contract | NB-001 | Implemented — awaiting approval |
 | [NB-003](NB-003-integrated-local-tunnel.md) | Integrated local tunnel | NB-001, NB-002 | Draft |
 | [NB-004](NB-004-location-output-and-pairing.md) | Location output and pairing | NB-001, NB-002, NB-003 | Draft |
 | [NB-005](NB-005-viecar-obd.md) | Viecar OBD discovery and speed | NB-001, NB-002 | Draft |
@@ -31,7 +31,7 @@ NB-010 is a separate CarPlay gate. NB-011 may deliver phone-only personal instal
 6. Stage exact task files, show stat/full diff and propose a commit message. Stop for owner approval; never push.
 7. Mark Complete only after the task outcome, required verification and complete-diff approval. Keep the plan and update this index.
 
-Default next task after foundation approval: [NB-001](NB-001-feasibility-and-baseline.md). Do not start live code automatically when documentation is approved.
+Current roadmap position: NB-002 is implemented and awaiting owner approval. Do not start later runtime tasks automatically.
 
 ## Status semantics
 
@@ -44,4 +44,4 @@ Default next task after foundation approval: [NB-001](NB-001-feasibility-and-bas
 
 Update status in the task and index together. Keep one file per task named `NB-NNN-short-slug.md`. Correct it in place; no v2 copies, per-task state JSON, segment manifests, handoff files or extra review/fixes plans. Add a new task only for separately agreed scope, preserving existing IDs.
 
-No runtime task currently has implementation approval or passing verification. NB-000 covers only the authorized documentation foundation. NB-001 includes a bounded execution guide for a smaller coding model; use its ready-to-paste prompt for the first new session.
+NB-002 is the only runtime task authorized for implementation in this roadmap position. Its tests and iOS build limitation are recorded in [the NB-002 plan](NB-002-native-session-contract.md). Do not start later runtime tasks automatically.

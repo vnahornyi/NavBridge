@@ -9,6 +9,16 @@
     "start": "react-native start",
     "test": "jest"
   },
+  "codegenConfig": {
+    "name": "NavBridgeSpec",
+    "type": "modules",
+    "jsSrcsDir": "specs",
+    "ios": {
+      "modulesProvider": {
+        "NativeNavBridge": "RCTNavBridge"
+      }
+    }
+  },
   "dependencies": {
     "react": "19.2.3",
     "react-native": "0.87.1",
