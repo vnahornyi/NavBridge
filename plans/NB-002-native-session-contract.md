@@ -2,7 +2,7 @@
 
 ## 0. Lifecycle and session entry
 
-- **Status:** Implemented — awaiting approval
+- **Status:** Complete
 - **Plan created:** 2026-10-11.
 - **Target:** iOS 27 / iPhone, with React Native presentation and native Swift execution. Android is outside scope.
 - **Prerequisites:** [NB-001](NB-001-feasibility-and-baseline.md)
@@ -111,14 +111,16 @@ No hour estimate, delivery date, hardware purchase or paid-service budget is app
 - [x] `node node_modules/react-native/scripts/generate-codegen-artifacts.js --path . --targetPlatform ios --outputPath /private/tmp/navbridge-codegen-nb002-final`: passed; generated provider map includes `NativeNavBridge` → `RCTNavBridge`.
 - [x] `plutil -lint ios/NavBridge.xcodeproj/project.pbxproj`: passed.
 - [x] Generic iOS Simulator build attempted with Xcode 27. The unmodified workspace build stopped because the installed `Pods.xcodeproj` does not expose the new generated `ReactCodegen/NavBridgeSpec/NavBridgeSpec.h`. With a temporary search path to fresh Codegen output, Swift and ObjC++ source compilation proceeded, then linking failed because the stale Pods project lacks `NativeNavBridgeSpecBase` and `NativeNavBridgeSpecJSI` generated symbols. `pod`/CocoaPods is not installed, so `pod install` could not be run. The local Swift package itself resolved in Xcode.
+- [x] After CocoaPods was installed and Pods regenerated, `xcodebuild -workspace ios/NavBridge.xcworkspace -scheme NavBridge -destination 'generic/platform=iOS Simulator' -derivedDataPath /private/tmp/navbridge-nb002-derived-data -clonedSourcePackagesDirPath /private/tmp/navbridge-nb002-source-packages build -quiet` passed (exit 0), including generated Codegen headers and linking `NativeNavBridgeSpecBase`/`NativeNavBridgeSpecJSI`. No simulator was launched. Xcode emitted dependency/toolchain warnings; none prevented compilation or linking.
 - [x] No simulator was launched. Device, Waze, CarPlay, vehicle, location-output, transport, and estimator runtime checks were not run.
 - [x] Exact task files staged; full staged diff and proposed commit message presented for owner review.
-- [ ] Owner approved the complete staged result; then mark Complete and update plans/README.md.
+- [x] Owner approved the complete staged result; implementation committed as `9939829` (`feat: implement native session contract`).
+- [x] Required host-link verification passed after Pods regeneration; the iOS host links the callable module.
 
 Append concise decisions and actual verification here as work proceeds. Do not create a separate handoff/review state file. Complete does not itself grant commit or publication authority.
 
 ## 12. Open questions, blockers and exclusions
 
-No product decision remains open for NB-002. Full workspace link verification awaits a CocoaPods installation that regenerates the existing Pods project from the new Codegen spec; the current environment has no `pod` executable. Device-signing blockers are outside this task.
+No product decision or implementation blocker remains open for NB-002. Host-link verification passed after CocoaPods regenerated the Pods project from the new Codegen spec. Device-signing blockers are outside this task.
 
 Read [the question register](../docs/research/open-questions.md) for cross-task questions. Record answers in the owning document and this plan. Future commercial distribution, automatic map matching, cell/Wi-Fi positioning, CAN/extra IMU hardware, GNSS anomaly detection and Android remain outside this task unless explicitly approved separately.
