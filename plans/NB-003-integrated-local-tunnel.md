@@ -3,6 +3,7 @@
 ## 0. Lifecycle and session entry
 
 - **Status:** Draft
+- **Scope decision:** Deferred outside the confirmed v1.0 baseline. Do not implement unless the owner explicitly revises R-11 and approves a new task scope.
 - **Plan created:** 2026-10-11.
 - **Target:** iOS 27 / iPhone, with React Native presentation and native Swift execution. Android is outside scope.
 - **Prerequisites:** [NB-001](NB-001-feasibility-and-baseline.md), [NB-002](NB-002-native-session-contract.md)
@@ -11,17 +12,17 @@
 
 New-session prompt:
 
-> Read AGENTS.md, plans/README.md, and plans/NB-003-integrated-local-tunnel.md. Inspect Git branch/HEAD and staged/working changes. Verify prerequisites and open questions against the current tree. Continue only the approved scope of NB-003; report actual checks and stop at the staged diff for approval. Do not commit or push.
+> Read AGENTS.md, plans/README.md, and plans/NB-003-integrated-local-tunnel.md. NB-003 is deferred because confirmed requirement R-11 excludes VPN in NavBridge and paid Apple Developer membership. Do not implement unless the owner explicitly changes R-11 and approves the revised task scope. Preserve this plan as future-scope context; do not commit or push without staged-diff approval.
 
 ## 1. Task and intended outcome
 
-NavBridge manages its own signed local packet tunnel with clear consent/state/cleanup, while ordinary phone networking remains usable.
+Future option outside v1.0: NavBridge could manage its own signed local packet tunnel with clear consent/state/cleanup while ordinary phone networking remains usable. This is not part of the confirmed product baseline.
 
 This is one task/approval unit. If new evidence materially changes it, update this plan and obtain agreement before expanding scope.
 
 ## 2. Verified context and proposed files
 
-LocalDevVPN at the pinned revision is a mechanism reference under a custom license. No tunnel target or product entitlements exist in NavBridge. Tunnel success alone cannot prove location output or background execution.
+LocalDevVPN at the pinned revision is a mechanism reference under a custom license. No tunnel target or product entitlements exist in NavBridge. Confirmed requirement R-11 excludes a NavBridge VPN from v1.0, so this plan is deferred; no LocalDevVPN code or license obligations are adopted for the current baseline.
 
 Proposed new: ios/NavBridgeTunnel/PacketTunnelProvider.swift, Info.plist, NavBridgeTunnel.entitlements; ios/NavBridge/Tunnel/ manager and integration tests. Existing: ios/NavBridge.xcodeproj/project.pbxproj and app entitlements if added. Update docs/engineering/ios-integration.md and dependency notices if code is reused.
 
@@ -29,19 +30,19 @@ Baseline repository revision: `289d710aac77cfa3e8b4985201ca8285e33fabb8`. Predec
 
 ## 3. Problem framing and decisions
 
-**Solved means:** NavBridge manages its own signed local packet tunnel with clear consent/state/cleanup, while ordinary phone networking remains usable.
+**Future solved means, only if reopened:** NavBridge manages its own signed local packet tunnel with clear consent/state/cleanup, while ordinary phone networking remains usable. It is explicitly outside the current v1.0 scope.
 
 **Shortcut and limit:** A checklist or fake happy-path result is easier to produce, but does not prove the task's behavioral boundary or actual device conditions. Do not use it as completion evidence.
 
-**Chosen approach and cost:** Follow the narrow ownership/files in §2 and the ordered steps below. Preserve native live ownership and shared replay logic; use the relevant proof layer, with device access where required. No backend or sibling-platform work is included.
+**Current decision:** Keep R-11 unchanged. Defer this task; do not add a packet-tunnel extension, VPN configuration, paid signing requirement, or LocalDevVPN-derived code to v1.0. The ordered steps below are retained only for future re-evaluation after an explicit scope change.
 
 **Who still has the problem:** Untested devices, OS builds, vehicle/adapter/head-unit configurations and users outside the agreed personal scope. Success of this task does not imply the entire product is complete.
 
-**Decisions:** [BLOCKING] Q-01 paid signing and owner-approved unique bundle identifiers. Review LocalDevVPN license/reuse scope before copying. Derive exact routes from the selected developer transport, not an arbitrary subnet.
+**Reopen conditions:** The owner must explicitly change R-11 to allow paid membership and an integrated VPN, approve the associated cost and unique identifiers, and review the selected source/license before any implementation. Derive exact routes from a selected and approved transport, not an arbitrary subnet.
 
 Applicable criteria: AGENTS.md; requirements R-01–R-10; [architecture contracts](../docs/architecture/contracts.md); [test strategy](../docs/testing/strategy.md). Numeric quality/resource settings need documented provenance and agreement; proposed structural design is reviewed with the task, not silently treated as established fact.
 
-## 4. Ordered implementation / research steps
+## 4. Future implementation / research steps if scope is reopened
 
 ### 1. Define target and provenance
 
@@ -113,6 +114,6 @@ Append concise decisions and actual verification here as work proceeds. Do not c
 
 ## 12. Open questions, blockers and exclusions
 
-[BLOCKING] Paid signing/provisioning and reuse-license review. If unavailable, record the blocker; do not silently change the final product to a two-app design.
+[BLOCKING if reopened] Explicit owner change to R-11 permitting paid signing and a NavBridge VPN, plus approval of the revised task scope and source/license approach. Without that change this task remains deferred; do not silently alter the v1.0 baseline.
 
 Read [the question register](../docs/research/open-questions.md) for cross-task questions. Record answers in the owning document and this plan. Future commercial distribution, automatic map matching, cell/Wi-Fi positioning, CAN/extra IMU hardware, GNSS anomaly detection and Android remain outside this task unless explicitly approved separately.

@@ -5,7 +5,7 @@
 - **Status:** Draft
 - **Plan created:** 2026-10-11.
 - **Target:** iOS 27 / iPhone, with React Native presentation and native Swift execution. Android is outside scope.
-- **Prerequisites:** [NB-003](NB-003-integrated-local-tunnel.md), [NB-004](NB-004-location-output-and-pairing.md), [NB-005](NB-005-viecar-obd.md), [NB-006](NB-006-motion-and-dead-reckoning.md), [NB-007](NB-007-recording-and-replay-harness.md), [NB-008](NB-008-control-screen-and-correction.md)
+- **Prerequisites:** [NB-004](NB-004-location-output-and-pairing.md), [NB-005](NB-005-viecar-obd.md), [NB-006](NB-006-motion-and-dead-reckoning.md), [NB-007](NB-007-recording-and-replay-harness.md), [NB-008](NB-008-control-screen-and-correction.md)
 - **Approval:** Draft only. Documentation approval does not authorize this implementation. Obtain owner approval of this task and its blocking decisions before code.
 - **Persistence:** Keep this plan in Git and update it in place; do not delete it after completion or create separate state/handoff/review files.
 
@@ -21,7 +21,7 @@ This is one task/approval unit. If new evidence materially changes it, update th
 
 ## 2. Verified context and proposed files
 
-Native ownership and tunnel survival do not prove host background execution. Accuracy has no agreed numerical target yet. Every result must identify app state, versions, reference uncertainty and configuration.
+Native session ownership does not prove host background execution. Accuracy has no agreed numerical target yet. Every result must identify app state, versions, reference uncertainty and configuration.
 
 Existing runtime files introduced by predecessors may receive only fixes needed for this acceptance scope. Proposed reviewed report: harness/reports/NB-009-device-acceptance.md. Update docs/testing/device-validation.md, acceptance.md, architecture/positioning.md and supported-condition notes.
 
@@ -89,7 +89,7 @@ Record preconditions → actions → expected result → actual observation usin
 
 ## 9. Regression scope
 
-End-to-end Start/correction/Stop, actual network/VPN/pairing, BLE input, mount recalibration, private recording policy and independent reference separation.
+End-to-end Start/correction/Stop, actual network and no-VPN pairing, BLE input, mount recalibration, private recording policy and independent reference separation.
 
 Broaden checks only when changed shared consumers, new failures, or unresolved concerns justify it. No unrelated dependency upgrade or architecture cleanup is included.
 

@@ -6,7 +6,7 @@ These questions do not block the documentation foundation. They gate the specifi
 
 | ID | Question / proposed answer | Blocks |
 |---|---|---|
-| Q-01 | Owner confirmed v1.0 is for their own iPhone on iOS 27, with no paid Apple Developer Program membership, no VPN in NavBridge, and no public release (2026-10-11). The embedded packet tunnel is out of v1.0. Pinned Locus instructions describe iOS 27 on-device developer pairing without LocalDevVPN; this is upstream evidence, not a verified NavBridge path. | Free-team NavBridge signing and iOS 27 pairing/location-output validation in NB-004; revise NB-003/NB-004 plans before implementation |
+| Q-01 | Owner confirmed v1.0 is for their own iPhone on iOS 27, with no paid Apple Developer Program membership, no VPN in NavBridge, and no public release (2026-10-11). The embedded packet tunnel is out of v1.0. Pinned Locus instructions describe iOS 27 on-device developer pairing without a computer, but Locus location output still uses a LocalDevVPN loopback (corrected 2026-10-12). NB-003 is deferred; NB-004 first tests, inside NavBridge, whether the developer tunnel opens to the phone's own address without a VPN. | Free-team NavBridge signing, no-VPN tunnel, and iOS 27 pairing/location-output validation in NB-004 remain unverified; a negative tunnel result returns the VPN boundary to the owner |
 | Q-02 | Resolved for the NB-001 external baseline at the owner's direction: Locus `main` was built for an iPhone 11 running iOS 27, used with LocalDevVPN and the latest App Store Waze version; the owner reports that GPS location returned after Locus Stop. Exact build identifiers are waived. Repeated position-update behavior remains unknown and non-blocking for NB-001. | No longer blocks NB-001. Repeated-update behavior remains unverified for any later comparison. |
 | Q-03 | Approve forward-only baseline with an explicit reverse limitation, or require a manual forward/reverse control? | NB-006 motion contract and NB-008 controls |
 | Q-04 | Approve manual vehicle heading and a rigid mounting/calibration procedure? | NB-006/NB-008 |
@@ -24,7 +24,7 @@ Resolved: all documentation and plans are English (R-10). Android is outside sco
 | ID | Investigation | Owning task |
 |---|---|---|
 | M-01 | Free-team signing and iOS 27 on-device developer pairing/location output on the owner's exact phone build | NB-004 |
-| M-02 | Set/clear acknowledgement, fresh-handle clear, process restart and tunnel-loss recovery | NB-004 |
+| M-02 | Set/clear acknowledgement, fresh-handle clear, process restart and pairing/connection-loss recovery | NB-004 |
 | M-03 | Actual BLE UUIDs/properties, supported speed PID, framing, latency and dropout distribution | NB-005 |
 | M-04 | IMU axis/sign/bias, mounting effects, clock mapping, sensor/output gap policy | NB-006 |
 | M-05 | Legitimate background execution while Waze is foreground; lock/termination behavior | NB-009 |

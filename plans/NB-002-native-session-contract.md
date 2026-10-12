@@ -2,11 +2,11 @@
 
 ## 0. Lifecycle and session entry
 
-- **Status:** Draft
+- **Status:** Complete
 - **Plan created:** 2026-10-11.
 - **Target:** iOS 27 / iPhone, with React Native presentation and native Swift execution. Android is outside scope.
 - **Prerequisites:** [NB-001](NB-001-feasibility-and-baseline.md)
-- **Approval:** Draft only. Documentation approval does not authorize this implementation. Obtain owner approval of this task and its blocking decisions before code.
+- **Approval:** The owner approved the NB-002 scope and command/session semantics in chat on 2026-10-12. React Native 0.87.1 Codegen accepted the flat nullable DTOs, Promise methods, and event emitter; no material contract change was needed. The workspace link remains unverified because the checked-in Pods project predates this Codegen spec and CocoaPods CLI is unavailable in the current environment.
 - **Persistence:** Keep this plan in Git and update it in place; do not delete it after completion or create separate state/handoff/review files.
 
 New-session prompt:
@@ -21,9 +21,9 @@ This is one task/approval unit. If new evidence materially changes it, update th
 
 ## 2. Verified context and proposed files
 
-The template has Swift AppDelegate and RN New Architecture, but no Codegen spec or NavBridge Swift package. docs/architecture/contracts.md and session-lifecycle.md are proposed contracts requiring transport validation.
+The template has a Swift AppDelegate and RN New Architecture. NB-002 adds the Codegen spec and a local NavBridge Swift package; docs/architecture/contracts.md and session-lifecycle.md remain contracts requiring transport validation.
 
-Proposed new: specs/NativeNavBridge.ts; src/native/nav-bridge-types.ts; src/native/nav-bridge-client.ios.ts; native/NavBridgeCore/Package.swift; Sources/NavBridgeCore/Model/ and Session/; Tests/NavBridgeCoreTests/SessionTests.swift; ios/NavBridge/Bridge/ and Session/. Existing integration points to inspect: package.json, ios/Podfile, ios/NavBridge.xcodeproj/project.pbxproj, ios/NavBridge/AppDelegate.swift. Do not edit generated Codegen files.
+Implemented: specs/NativeNavBridge.ts; src/native/nav-bridge-types.ts; src/native/nav-bridge-client.ios.ts and its focused tests; native/NavBridgeCore/Package.swift, model/session sources and tests; ios/NavBridge/Bridge/NavBridgeSessionService.swift and RCTNavBridge.mm. Integration points: package.json and ios/NavBridge.xcodeproj/project.pbxproj. Generated Codegen output stays under ignored build/temp paths and is not tracked.
 
 Baseline repository revision: `289d710aac77cfa3e8b4985201ca8285e33fabb8`. Predecessor tasks may add the proposed files; a new session must verify they actually exist. Future paths are planned ownership, not claims of implemented APIs. Sources and observation limits: [evidence register](../docs/research/evidence.md).
 
@@ -37,7 +37,9 @@ Baseline repository revision: `289d710aac77cfa3e8b4985201ca8285e33fabb8`. Predec
 
 **Who still has the problem:** Untested devices, OS builds, vehicle/adapter/head-unit configurations and users outside the agreed personal scope. Success of this task does not imply the entire product is complete.
 
-**Decisions:** Approve the native command/snapshot and async acknowledgement semantics; flatten unsupported Codegen union types with validated conversions. Choose the narrow native serialization API after verifying installed Swift/RN tooling. No OS transport or estimator math in this task.
+**Approved decisions (owner, 2026-10-12):** Native state is authoritative. Start enters `preparing` and becomes `active` only after prerequisites and the first output effect are acknowledged. Corrections require a position, heading, or both; omitted values are retained, and empty corrections are rejected. Duplicate request IDs do not repeat effects. Session/generation tokens fence stale work; Stop supersedes pending work. A failed or unknown clear enters `cleanupRequired`. Snapshots use an increasing sequence, and reconnect obtains a snapshot then subscribes without losing a transition. Codegen uses flat, validated DTOs if the RN 0.87.1 compile proof does not support the conceptual union shapes. No OS transport or estimator math is in this task.
+
+**Codegen proof:** RN 0.87.1 generated the expected iOS provider mapping (`NativeNavBridge` → `RCTNavBridge`), nullable flat fields, Promise methods, and `onSessionUpdate`. Additional corrections while a correction is pending are rejected with `commandConflict`; they are not queued or coalesced.
 
 Applicable criteria: AGENTS.md; requirements R-01–R-10; [architecture contracts](../docs/architecture/contracts.md); [test strategy](../docs/testing/strategy.md). Numeric quality/resource settings need documented provenance and agreement; proposed structural design is reviewed with the task, not silently treated as established fact.
 
@@ -99,20 +101,26 @@ No hour estimate, delivery date, hardware purchase or paid-service budget is app
 
 ## 11. Verification and completion
 
-**Current record:** Not started. No task implementation, automated check, build, simulator, device, Waze, CarPlay, or vehicle result is claimed by this plan.
+**Current record (2026-10-12):** Implementation is ready for owner review. `SessionCoordinator.shared` deliberately uses an unavailable effect runner, so the bridge cannot claim a live output or enter `active` in production in this task.
 
-- [ ] Owner-approved task scope and blocking decisions recorded.
-- [ ] Prerequisites verified against the current repository and device evidence.
-- [ ] Ordered steps completed within scope; actual paths/contracts recorded.
-- [ ] Authorized checks recorded with commands, revision, results and skipped cases.
-- [ ] Relevant documentation/evidence updated; secrets and private recordings excluded.
-- [ ] Exact task files staged; full diff and commit message presented.
-- [ ] Owner approved the complete staged result; then mark Complete and update plans/README.md.
+- [x] Owner-approved task scope and decisions recorded; prerequisites verified against the current repository.
+- [x] Native state machine, local Swift package, flat Codegen spec, iOS provider, Swift service, and JS snapshot/subscription client implemented at the paths in §2.
+- [x] `swift test --package-path native/NavBridgeCore`: 11 tests passed on macOS arm64e.
+- [x] `npm test -- --runInBand --watchman=false`: 2 suites, 6 tests passed. Watchman was disabled because its socket permission check fails in this environment.
+- [x] `npx --no-install tsc --noEmit`: passed.
+- [x] `node node_modules/react-native/scripts/generate-codegen-artifacts.js --path . --targetPlatform ios --outputPath /private/tmp/navbridge-codegen-nb002-final`: passed; generated provider map includes `NativeNavBridge` → `RCTNavBridge`.
+- [x] `plutil -lint ios/NavBridge.xcodeproj/project.pbxproj`: passed.
+- [x] Generic iOS Simulator build attempted with Xcode 27. The unmodified workspace build stopped because the installed `Pods.xcodeproj` does not expose the new generated `ReactCodegen/NavBridgeSpec/NavBridgeSpec.h`. With a temporary search path to fresh Codegen output, Swift and ObjC++ source compilation proceeded, then linking failed because the stale Pods project lacks `NativeNavBridgeSpecBase` and `NativeNavBridgeSpecJSI` generated symbols. `pod`/CocoaPods is not installed, so `pod install` could not be run. The local Swift package itself resolved in Xcode.
+- [x] After CocoaPods was installed and Pods regenerated, `xcodebuild -workspace ios/NavBridge.xcworkspace -scheme NavBridge -destination 'generic/platform=iOS Simulator' -derivedDataPath /private/tmp/navbridge-nb002-derived-data -clonedSourcePackagesDirPath /private/tmp/navbridge-nb002-source-packages build -quiet` passed (exit 0), including generated Codegen headers and linking `NativeNavBridgeSpecBase`/`NativeNavBridgeSpecJSI`. No simulator was launched. Xcode emitted dependency/toolchain warnings; none prevented compilation or linking.
+- [x] No simulator was launched. Device, Waze, CarPlay, vehicle, location-output, transport, and estimator runtime checks were not run.
+- [x] Exact task files staged; full staged diff and proposed commit message presented for owner review.
+- [x] Owner approved the complete staged result; implementation committed as `9939829` (`feat: implement native session contract`).
+- [x] Required host-link verification passed after Pods regeneration; the iOS host links the callable module.
 
 Append concise decisions and actual verification here as work proceeds. Do not create a separate handoff/review state file. Complete does not itself grant commit or publication authority.
 
 ## 12. Open questions, blockers and exclusions
 
-[BLOCKING] Approval of command/state semantics and Codegen representation after minimal compile proof. Device-signing blockers can be isolated from pure-core development.
+No product decision or implementation blocker remains open for NB-002. Host-link verification passed after CocoaPods regenerated the Pods project from the new Codegen spec. Device-signing blockers are outside this task.
 
 Read [the question register](../docs/research/open-questions.md) for cross-task questions. Record answers in the owning document and this plan. Future commercial distribution, automatic map matching, cell/Wi-Fi positioning, CAN/extra IMU hardware, GNSS anomaly detection and Android remain outside this task unless explicitly approved separately.

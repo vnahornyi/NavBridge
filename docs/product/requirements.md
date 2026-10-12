@@ -20,7 +20,7 @@
 
 | ID | Proposed decision | Agreement or evidence needed |
 |---|---|---|
-| P-01 | Use iOS 27 on-device developer pairing as the candidate system-location output path, with no VPN in v1.0 | Pinned Locus instructions describe this iOS 27 path; NavBridge signing, pairing, location output, clear/recovery, and Waze behavior remain unverified |
+| P-01 | Use iOS 27 on-device developer pairing as the candidate system-location output path, with no VPN in v1.0 | Pinned Locus instructions describe on-device pairing for iOS 27, but its location output still uses a LocalDevVPN loopback tunnel. A no-VPN tunnel is unproven and is NB-004's first experiment (owner decision, 2026-10-12); NavBridge signing, output, clear/recovery, and Waze behavior remain unverified |
 | P-02 | User confirms both position and vehicle heading; heading correction is available | Coordinates alone do not determine forward direction |
 | P-03 | Phone remains rigidly mounted; moving it requires recalibration | Installation procedure and detection behavior need agreement |
 | P-04 | First estimator uses measured speed and relative yaw, with manual correction | No accuracy commitment until field measurements |

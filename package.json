@@ -7,7 +7,20 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "clean": "react-native clean",
+    "pod-install": "cd ios && bundle exec pod install && cd ..",
+    "pod-update": "cd ios && bundle exec pod update && cd .."
+  },
+  "codegenConfig": {
+    "name": "NavBridgeSpec",
+    "type": "modules",
+    "jsSrcsDir": "specs",
+    "ios": {
+      "modulesProvider": {
+        "NativeNavBridge": "RCTNavBridge"
+      }
+    }
   },
   "dependencies": {
     "react": "19.2.3",
