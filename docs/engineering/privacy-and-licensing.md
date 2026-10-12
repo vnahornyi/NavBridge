@@ -6,7 +6,7 @@ The baseline has no account, backend, telemetry, advertising, or automatic uploa
 
 | Data | Proposed handling | Git policy |
 |---|---|---|
-| Pairing records and device authentication keys | Restricted native storage; delete/re-pair flow | Never track or paste into plans |
+| Pairing records and device authentication keys | Keychain generic-password item, `AfterFirstUnlockThisDeviceOnly`, not synchronized (NB-004 decision, 2026-10-12); explicit Forget pairing; no automatic deletion on transport errors; stale item removed on first launch after reinstall | Never track or paste into plans |
 | Certificates, signing keys, provisioning profiles | Owner-managed signing storage | Never track |
 | Adapter/device identifiers | Local diagnostics only, redact for sharing | Do not publish raw identifiers |
 | Live positions, motion and speed recordings | Explicit local recording/export | Private ignored folder; no automatic upload |

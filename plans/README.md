@@ -31,7 +31,7 @@ NB-010 is a separate CarPlay gate. NB-011 may deliver phone-only personal instal
 6. Stage exact task files, show stat/full diff and propose a commit message. Stop for owner approval; never push.
 7. Mark Complete only after the task outcome, required verification and complete-diff approval. Keep the plan and update this index.
 
-Current roadmap position: NB-003 is deferred beyond v1.0 under R-11. NB-004 is next under the confirmed no-VPN scope; its remaining pairing, storage, FFI provenance, and recovery decisions must be resolved and the task scope approved before implementation.
+Current roadmap position: NB-003 is deferred beyond v1.0 under R-11. NB-004 is next under the confirmed no-VPN scope; its pairing, storage, FFI provenance, and recovery decisions were recorded on 2026-10-12. Its first implementation step after the FFI build tests whether a no-VPN tunnel works at all. UI wording and the complete task scope still need approval before implementation.
 
 ## Status semantics
 
