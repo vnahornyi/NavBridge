@@ -122,7 +122,7 @@ No hour estimate, delivery date, hardware purchase or paid-service budget is app
 **Current record (2026-10-12):** Blocking decisions D-1–D-5 recorded; implementation not started. No task implementation, automated check, build, simulator, device, Waze, CarPlay, or vehicle result is claimed by this plan.
 
 - [x] Blocking decisions recorded (D-1–D-5, 2026-10-12).
-- [ ] Owner-approved task scope, including UI locale/wording.
+- [x] Owner-approved task scope, including UI locale/wording.
 - [ ] Prerequisites verified against the current repository and device evidence.
 - [ ] Ordered steps completed within scope; actual paths/contracts recorded.
 - [ ] Authorized checks recorded with commands, revision, results and skipped cases.
