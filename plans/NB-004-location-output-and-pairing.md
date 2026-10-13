@@ -2,13 +2,13 @@
 
 ## 0. Lifecycle and session entry
 
-- **Status:** Draft
+- **Status:** Approved
 - **Current scope:** No VPN in NavBridge. Target the iOS 27 on-device Developer Mode pairing path. The first step after the FFI build is a no-VPN tunnel experiment inside NavBridge; free-team signing and NavBridge output/recovery remain unverified.
-- **Decisions recorded:** 2026-10-12 (§3). Implementation scope is not yet approved.
+- **Decisions recorded:** 2026-10-12 (§3). Owner approved the task scope and the English pairing/recovery UI locale on 2026-10-12.
 - **Plan created:** 2026-10-11.
 - **Target:** iOS 27 / iPhone, with React Native presentation and native Swift execution. Android is outside scope.
 - **Prerequisites:** [NB-001](NB-001-feasibility-and-baseline.md), [NB-002](NB-002-native-session-contract.md)
-- **Approval:** Draft only. Documentation approval does not authorize this implementation. Obtain owner approval of this task and its blocking decisions before code.
+- **Approval:** Owner-approved 2026-10-12 (task scope, English UI locale). The exact pairing/recovery copy strings are not enumerated in this plan; the implementation session lists them for owner approval before the first UI change (§5).
 - **Persistence:** Keep this plan in Git and update it in place; do not delete it after completion or create separate state/handoff/review files.
 
 New-session prompt:
@@ -51,7 +51,7 @@ Baseline repository revision: `289d710aac77cfa3e8b4985201ca8285e33fabb8`. Predec
 
 Map transport callbacks to the NB-002 acknowledgement outcomes while keeping live session effects and ordering in native Swift. If fresh-handle clear cannot be proven, expose the limitation and do not fabricate a setup coordinate. If free-team signing or the no-VPN tunnel is unavailable, stop and report the blocker rather than introducing paid signing or a tunnel.
 
-**Still open before implementation approval:** pairing/recovery screen locale and wording (§5, Q-07), and owner approval of the complete task scope.
+**Resolved 2026-10-12:** the owner approved the complete task scope and set the pairing/recovery screen locale to English. Q-07 (map picker, NB-008) stays open and does not apply here.
 
 Applicable criteria: AGENTS.md; requirements R-01–R-11; [architecture contracts](../docs/architecture/contracts.md); [test strategy](../docs/testing/strategy.md). Numeric quality/resource settings need documented provenance and agreement; proposed structural design is reviewed with the task, not silently treated as established fact.
 
@@ -89,7 +89,7 @@ Repeat controlled distinct-coordinate set/clear, ongoing updates, canceled start
 
 ## 5. Language and user-facing copy
 
-All code, documentation and plans are English. The product UI locale is a separate decision (Q-07). No localization catalog or i18n framework exists in the template; do not invent a catalog command. For user-visible changes, agree the supported locale and recovery/error wording before implementation.
+All code, documentation and plans are English. The pairing/recovery screen locale is English (owner, 2026-10-12); Q-07 remains open for the NB-008 map picker. No localization catalog or i18n framework exists in the template; do not invent a catalog command. Before the first UI change, the implementation session lists every user-visible string and recovery/error message for owner approval.
 
 ## 6. Unit and integration tests
 
